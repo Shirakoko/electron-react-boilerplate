@@ -195,7 +195,7 @@ export default class MenuBuilder {
   buildDefaultTemplate() {
     const templateDefault = [
       {
-        label: '&File',
+        label: '&文件',
         submenu: [
           {
             label: '&Open',
@@ -211,7 +211,7 @@ export default class MenuBuilder {
         ],
       },
       {
-        label: '&View',
+        label: '&视图',
         submenu:
           process.env.NODE_ENV === 'development' ||
           process.env.DEBUG_PROD === 'true'
@@ -253,7 +253,7 @@ export default class MenuBuilder {
               ],
       },
       {
-        label: 'Help',
+        label: '帮助',
         submenu: [
           {
             label: 'Learn More',

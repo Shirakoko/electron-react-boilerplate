@@ -176,30 +176,13 @@
   },
   "build": {
     "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
     "asar": true,
-    "afterSign": ".erb/scripts/notarize.js",
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
       "dist",
       "node_modules",
       "package.json"
     ],
-    "mac": {
-      "notarize": false,
-      "target": {
-        "target": "default",
-        "arch": [
-          "arm64",
-          "x64"
-        ]
-      },
-      "type": "distribution",
-      "hardenedRuntime": true,
-      "entitlements": "assets/entitlements.mac.plist",
-      "entitlementsInherit": "assets/entitlements.mac.plist",
-      "gatekeeperAssess": false
-    },
     "dmg": {
       "contents": [
         {
@@ -216,14 +199,13 @@
     },
     "win": {
       "target": [
-        "nsis"
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage"
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
       ],
-      "category": "Development"
+      "sign": false,
+      "signingHashAlgorithms": []
     },
     "directories": {
       "app": "release/app",

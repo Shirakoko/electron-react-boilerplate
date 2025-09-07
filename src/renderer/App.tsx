@@ -2,13 +2,19 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
 
-function Hello() {
+/** 主页面 */
+function Main() {
+  const handleOpenPullTool = () => {
+    // 发送IPC消息给主进程，请求打开拉取工具窗口
+    window.electron?.ipcRenderer.sendMessage('close-main');
+  };
+  
   return (
     <div>
       <div className="Hello">
         <img width="200" alt="icon" src={icon} />
       </div>
-      <h1>electron-react-boilerplate</h1>
+      <h1>编辑器救世主</h1>
       <div className="Hello">
         <a
           href="https://electron-react-boilerplate.js.org/"
@@ -34,6 +40,12 @@ function Hello() {
             Donate
           </button>
         </a>
+        <button className="open-sync-tool" onClick={handleOpenPullTool}>
+          <span role="img" aria-label="folder">
+            📂
+          </span>
+          打开拉取工具
+        </button>
       </div>
     </div>
   );
@@ -43,7 +55,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Hello />} />
+        <Route path="/" element={<Main />} />
       </Routes>
     </Router>
   );
