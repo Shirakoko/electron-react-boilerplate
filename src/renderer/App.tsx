@@ -1,14 +1,15 @@
+import { JSX } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
-import './App.css';
+import './css/Global.css';
 
 /** 主页面 */
-function Main() {
+function Main(): JSX.Element {
   const handleOpenPullTool = () => {
     // 发送IPC消息给主进程，请求打开拉取工具窗口
     window.electron?.ipcRenderer.sendMessage('close-main');
   };
-  
+
   return (
     <div>
       <div className="Hello">
@@ -40,7 +41,11 @@ function Main() {
             Donate
           </button>
         </a>
-        <button className="open-sync-tool" onClick={handleOpenPullTool}>
+        <button
+          type="button"
+          className="open-sync-tool"
+          onClick={handleOpenPullTool}
+        >
           <span role="img" aria-label="folder">
             📂
           </span>

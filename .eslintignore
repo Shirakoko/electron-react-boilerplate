@@ -2,6 +2,9 @@
 logs
 *.log
 
+# Ejs template files
+*.ejs
+
 # Runtime data
 pids
 *.pid
