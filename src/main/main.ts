@@ -10,18 +10,8 @@
  */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
-import { autoUpdater } from 'electron-updater';
-import log from 'electron-log';
 import MenuBuilder from './menu';
 import { getAssetPath, resolveHtmlPath } from './util';
-
-class AppUpdater {
-  constructor() {
-    log.transports.file.level = 'info';
-    autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
-  }
-}
 
 let mainWindow: BrowserWindow | null = null; // 主窗口
 let syncWindow: BrowserWindow | null = null; // 拉取窗口
@@ -112,18 +102,14 @@ const createMainWindow = async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  const menuBuilder = new MenuBuilder(mainWindow, 'main');
+  menuBuilder.BuildMenu();
 
   // Open urls in the user's browser
   mainWindow.webContents.setWindowOpenHandler((edata) => {
     shell.openExternal(edata.url);
     return { action: 'deny' };
   });
-
-  // Remove this if your app does not use auto updates
-  // eslint-disable-next-line
-  // new AppUpdater();
 };
 
 const createSyncWindow = async () => {
@@ -162,6 +148,9 @@ const createSyncWindow = async () => {
           mainWindow.show();
         }
     });
+    
+    const menuBuilder = new MenuBuilder(syncWindow, 'sync');
+    menuBuilder.BuildMenu();
 
     syncWindow.webContents.setWindowOpenHandler((edata) => {
       shell.openExternal(edata.url);
