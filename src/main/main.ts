@@ -94,7 +94,7 @@ const createMainWindow = async () => {
     },
   });
 
-  // 加载renderer/index.ejs页面
+  // 加载renderer/index.html页面
   mainWindow.loadURL(resolveHtmlPath('index.html'));
 
   mainWindow.on('ready-to-show', () => {
@@ -146,7 +146,7 @@ const createSyncWindow = async () => {
         },
     });
 
-    syncWindow.loadFile('src/renderer/sync.html');
+    syncWindow.loadURL(resolveHtmlPath('sync.html'));
 
     syncWindow.on('ready-to-show', () => {
       if (!syncWindow) {
@@ -158,7 +158,9 @@ const createSyncWindow = async () => {
     syncWindow.on('closed', () => {
         syncWindow = null;
         // 显示主窗口
-        mainWindow!.show();
+        if(mainWindow) {
+          mainWindow.show();
+        }
     });
 
     syncWindow.webContents.setWindowOpenHandler((edata) => {
